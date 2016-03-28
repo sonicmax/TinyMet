@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * Override onTick() method in Fragment/etc to handle UI interactions/changes.
  */
 public class SimpleMetronome {
-    private final int TEMPO_LIMIT = 241;
+    private final int TEMPO_LIMIT = 240;
     private ScheduledExecutorService mBeatScheduler;
     private ScheduledFuture mFutureBeat;
 
@@ -84,7 +84,7 @@ public class SimpleMetronome {
     }
 
     public void setTempo(int value) {
-        if (value > 0 && value < TEMPO_LIMIT) {
+        if (value > 0 && value <= TEMPO_LIMIT) {
             mTempo = value;
             mTempoInMs = getTickInMs();
         }

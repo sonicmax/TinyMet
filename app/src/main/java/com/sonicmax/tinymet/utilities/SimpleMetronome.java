@@ -6,8 +6,8 @@ import android.media.MediaPlayer;
 import com.sonicmax.tinymet.R;
 
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,10 +16,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class SimpleMetronome {
     private final int TEMPO_LIMIT = 241;
+    private ScheduledExecutorService mBeatScheduler;
+    private ScheduledFuture mFutureBeat;
 
     private final MediaPlayer mTickPlayer;
     private final MediaPlayer mTockPlayer;
-    private ScheduledExecutorService mBeatService;
     private int mBeatsPerBar;
     private int mTempo;
     private int mTempoInMs;
@@ -32,6 +33,7 @@ public class SimpleMetronome {
         mTempo = tempo;
         mTempoInMs = getTickInMs();
         mCurrentBeat = 0;
+        mBeatScheduler = Executors.newSingleThreadScheduledExecutor();
         mTickPlayer = MediaPlayer.create(context, R.raw.high_seiko);
         mTockPlayer = MediaPlayer.create(context, R.raw.low_seiko);
     }
@@ -58,7 +60,7 @@ public class SimpleMetronome {
             }
 
             onTick(mCurrentBeat++);
-            mBeatService.schedule(mTick, mTempoInMs, TimeUnit.MILLISECONDS);
+            mFutureBeat = mBeatScheduler.schedule(mTick, mTempoInMs, TimeUnit.MILLISECONDS);
         }
 
     };
@@ -70,14 +72,13 @@ public class SimpleMetronome {
     public void onTick(int currentBeat) {}
 
     public void start() {
-        mBeatService = Executors.newSingleThreadScheduledExecutor();
-        mBeatService.schedule(mTick, mTempoInMs, TimeUnit.MILLISECONDS);
+        mBeatScheduler.schedule(mTick, mTempoInMs, TimeUnit.MILLISECONDS);
         mIsRunning = true;
     }
 
     public void stop() {
         if (mIsRunning) {
-            mBeatService.shutdown();
+            mFutureBeat.cancel(true);
             mIsRunning = false;
         }
     }

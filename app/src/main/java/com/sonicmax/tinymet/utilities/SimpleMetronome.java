@@ -86,7 +86,8 @@ public class SimpleMetronome {
     public void onTick(int currentBeat) {}
 
     public void start() {
-        mBeatScheduler.schedule(mTick, mTempoInMs, TimeUnit.MILLISECONDS);
+        // Schedule first beat to start immediately.
+        mBeatScheduler.schedule(mTick, 0, TimeUnit.MILLISECONDS);
         mIsRunning = true;
     }
 

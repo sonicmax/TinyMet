@@ -26,7 +26,7 @@ public class MainFragment extends Fragment {
     private final int DEFAULT_TEMPO = 120;
     private final int DEFAULT_PERCENT = 100;
     private final int DEFAULT_BEATS = 4;
-    private final int TEMPO_LIMIT = 241;
+    private final int TEMPO_LIMIT = 240;
     private final int REPEAT_DELAY = 50;
 
     private SimpleMetronome mMetronome;

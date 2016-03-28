@@ -16,11 +16,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class SimpleMetronome {
     private final int TEMPO_LIMIT = 240;
+
+    private MediaPlayer mTickPlayer;
+    private MediaPlayer mTockPlayer;
     private ScheduledExecutorService mBeatScheduler;
     private ScheduledFuture mFutureBeat;
 
-    private final MediaPlayer mTickPlayer;
-    private final MediaPlayer mTockPlayer;
     private int mBeatsPerBar;
     private int mTempo;
     private int mTempoInMs;
@@ -50,13 +51,12 @@ public class SimpleMetronome {
 
         @Override
         public void run() {
-            // Main logic for metronome.
             if (mCurrentBeat == 0 || mCurrentBeat == mBeatsPerBar) {
                 mCurrentBeat = 0;
-                mTickPlayer.start();
+                playTick();
             }
             else {
-                mTockPlayer.start();
+                playTock();
             }
 
             onTick(mCurrentBeat++);
@@ -64,6 +64,20 @@ public class SimpleMetronome {
         }
 
     };
+
+    private void playTick() {
+        if (mTickPlayer.isPlaying()) {
+            mTickPlayer.stop();
+        }
+        mTickPlayer.start();
+    }
+
+    private void playTock() {
+        if (mTockPlayer.isPlaying()) {
+            mTockPlayer.stop();
+        }
+        mTockPlayer.start();
+    }
 
     /**
      * Called after each metronome tick has completed

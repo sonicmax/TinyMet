@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TinyMet</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="default_bpm">120</string>
+
+    <string name="drawer_open">Open options</string>
+    <string name="drawer_close">Close options</string>
+</resources>

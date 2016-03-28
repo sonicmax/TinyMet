@@ -1,0 +1,158 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.sonicmax.tinymet.MainFragment"
+    tools:showIn="@layout/activity_main"
+    android:clickable="false"
+    android:padding="20dp"
+    android:focusable="false">
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ticker"
+        android:background="@color/colorPrimary"
+        android:indeterminate="false"
+        android:clickable="true"
+        android:layout_centerVertical="true"
+        android:padding="20dp"
+        android:progressBackgroundTintMode="multiply"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:progressBackgroundTint="#775252"
+        android:splitTrack="false" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:id="@+id/minus_button"
+        android:clickable="true"
+        android:focusable="false"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button"
+        android:elegantTextHeight="false" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:id="@+id/plus_button"
+        android:clickable="true"
+        android:layout_alignTop="@+id/minus_button"
+        android:layout_toRightOf="@+id/button"
+        android:layout_toEndOf="@+id/button" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:clickable="false"
+        android:layout_alignTop="@+id/minus_button"
+        android:layout_centerHorizontal="true"
+        android:alpha="0.2" />
+
+    <TextView
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/percent"
+        android:clickable="true"
+        android:focusable="false"
+        android:layout_above="@+id/minus_button"
+        android:layout_toLeftOf="@+id/plus_button"
+        android:layout_toStartOf="@+id/plus_button"
+        android:alpha="0.5"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:allowUndo="false"
+        android:layout_centerHorizontal="true"
+        android:textSize="10sp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;&lt;"
+        android:id="@+id/minus_percent"
+        android:clickable="true"
+        android:focusable="false"
+        android:elegantTextHeight="false"
+        android:layout_alignTop="@+id/percent"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=">>"
+        android:id="@+id/plus_percent"
+        android:clickable="true"
+        android:focusable="false"
+        android:layout_alignTop="@+id/percent"
+        android:layout_toRightOf="@+id/percent"
+        android:layout_toEndOf="@+id/percent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Nerd stuff:"
+        android:id="@+id/nerd"
+        android:layout_below="@+id/ticker"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0"
+        android:id="@+id/debug"
+        android:layout_below="@+id/nerd"
+        android:layout_alignLeft="@+id/debug_ms"
+        android:layout_alignStart="@+id/debug_ms" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Beat:"
+        android:id="@+id/textView"
+        android:layout_below="@+id/nerd"
+        android:layout_alignLeft="@+id/nerd"
+        android:layout_alignStart="@+id/nerd" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="ms:"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0"
+        android:id="@+id/debug_ms"
+        android:layout_below="@+id/debug"
+        android:layout_alignRight="@+id/nerd"
+        android:layout_alignEnd="@+id/nerd" />
+
+
+</RelativeLayout>

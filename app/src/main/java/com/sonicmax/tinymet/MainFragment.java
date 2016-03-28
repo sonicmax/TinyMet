@@ -193,7 +193,7 @@ public class MainFragment extends Fragment {
 
                         @Override
                         public void run() {
-                            int id = (mMetronome.isRunning()) ? R.drawable.ic_media_play : R.drawable.ic_media_pause;
+                            int id = (mMetronome.isRunning()) ? R.drawable.ic_media_pause : R.drawable.ic_media_play;
                             changeFloatingButtonIcon(id);
                         }
 
@@ -226,6 +226,7 @@ public class MainFragment extends Fragment {
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
             mMetronome.stop();
+            changeFloatingButtonIcon(R.drawable.ic_media_play);
         }
 
         @Override

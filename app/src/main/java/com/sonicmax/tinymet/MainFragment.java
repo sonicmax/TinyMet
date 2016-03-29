@@ -219,15 +219,22 @@ public class MainFragment extends Fragment {
     };
 
     SeekBar.OnSeekBarChangeListener beatChanger = new SeekBar.OnSeekBarChangeListener() {
+        private boolean wasRunning;
+
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            // TODO Auto-generated method stub
+            if (wasRunning) {
+                // Restart metronome
+                mMetronome.start();
+                changeFloatingButtonIcon(R.drawable.ic_media_pause);
+            }
         }
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
+            // Stop metronome while user is adjusting seekbar.
+            wasRunning = mMetronome.isRunning();
             mMetronome.stop();
-            changeFloatingButtonIcon(R.drawable.ic_media_play);
         }
 
         @Override

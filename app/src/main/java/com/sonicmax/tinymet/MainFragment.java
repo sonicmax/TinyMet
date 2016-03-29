@@ -69,7 +69,7 @@ public class MainFragment extends Fragment {
         mDebugBeatView = (TextView) mRootView.findViewById(R.id.debug);
         mDebugMsView = (TextView) mRootView.findViewById(R.id.debug_ms);
 
-        // Save references to views that may be important later
+        // Save references to views that may be useful later
         mTempoView = (TextView) mRootView.findViewById(R.id.bpm);
         mTempoEdit = (EditText) mRootView.findViewById(R.id.bpm_edit);
         mTempoSwitcher = (ViewSwitcher) mRootView.findViewById(R.id.bpm_switcher);
@@ -151,11 +151,12 @@ public class MainFragment extends Fragment {
                     break;
 
                 case R.id.bpm_switcher:
-                    mTempoSwitcher.showNext(); // Switch from TextView to EditText
+                    mTempoSwitcher.showNext(); // Switch TextView containing tempo to EditText
                     mTempoEdit.requestFocus();
                     mTempoEdit.setText("");
                     mTempoEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         public void onFocusChange(View v, boolean hasFocus) {
+                            // Parse input of mTempoEdit after losing focus
                             if (!hasFocus) {
                                 try {
                                     int newTempo = Integer.parseInt(mTempoEdit.getText().toString());
@@ -165,10 +166,11 @@ public class MainFragment extends Fragment {
                                     }
 
                                 } catch (NumberFormatException e) {
+                                    // User entered a blank number. We can ignore this
                                     Log.e(LOG_TAG, "Couldn't parse input", e);
                                 }
 
-                                mTempoSwitcher.showPrevious();
+                                mTempoSwitcher.showPrevious(); // Switch back to TextView
                             }
                         }
                     });
@@ -182,7 +184,6 @@ public class MainFragment extends Fragment {
         @Override
         public boolean onLongClick(View v) {
             switch(v.getId()) {
-
                 case R.id.fab:
                     // Change FAB icon so user knows that they triggered this action
                     changeFloatingButtonIcon(R.drawable.ic_undo_white_24dp);
@@ -317,6 +318,11 @@ public class MainFragment extends Fragment {
     ///////////////////////////////////////////////////////////////////////////
     // Helper methods for metronome
     ///////////////////////////////////////////////////////////////////////////
+
+    public void setTempo(int newTempo) {
+        mCurrentTempo = newTempo;
+        pushTempoChange(mCurrentTempo);
+    }
 
     private void increaseTempo() {
         if (mCurrentTempo < TEMPO_LIMIT) { // 240

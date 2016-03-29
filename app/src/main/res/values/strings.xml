@@ -6,4 +6,5 @@
 
     <string name="drawer_open">Open options</string>
     <string name="drawer_close">Close options</string>
+    <string name="pick_language">Pick a language</string>
 </resources>

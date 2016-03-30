@@ -42,10 +42,7 @@ public class MainFragment extends Fragment {
     private Button mDecreasePercent;
     private Button mIncreasePercent;
     private FloatingActionButton mFloatingButton;
-
-    //DEBUG STUFF
-    private TextView mDebugBeatView;
-    private TextView mDebugMsView;
+    private TextView mBeatView;
 
     private int mCurrentTempo;
     private int mCurrentBeats;
@@ -65,13 +62,10 @@ public class MainFragment extends Fragment {
 
         mRootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        // DEBUG STUFF
-        mDebugBeatView = (TextView) mRootView.findViewById(R.id.debug);
-        mDebugMsView = (TextView) mRootView.findViewById(R.id.debug_ms);
-
         // Save references to views that may be useful later
         mTempoView = (TextView) mRootView.findViewById(R.id.bpm);
         mTempoEdit = (EditText) mRootView.findViewById(R.id.bpm_edit);
+        mBeatView = (TextView) mRootView.findViewById(R.id.beat);
         mTempoSwitcher = (ViewSwitcher) mRootView.findViewById(R.id.bpm_switcher);
         mDecreaseTempo = (Button) mRootView.findViewById(R.id.minus_button);
         mIncreaseTempo = (Button) mRootView.findViewById(R.id.plus_button);
@@ -251,12 +245,7 @@ public class MainFragment extends Fragment {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            mDebugBeatView.setText(Integer.toString(progress + 1));
-
-            if (mMetronome != null) {
-                mDebugMsView.setText(Integer.toString(mMetronome.getTickInMs()));
-            }
-
+            mBeatView.setText(Integer.toString(progress + 1));
             // Allow user to change current beat by manipulating seekbar.
             if (fromUser) {
                 mMetronome.setCurrentBeat(progress);

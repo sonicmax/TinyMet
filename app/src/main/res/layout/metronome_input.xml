@@ -108,20 +108,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Nerd stuff:"
-        android:id="@+id/nerd"
-        android:layout_below="@+id/ticker"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
-        android:id="@+id/debug"
-        android:layout_below="@+id/nerd"
-        android:layout_alignLeft="@+id/debug_ms"
-        android:layout_alignStart="@+id/debug_ms" />
+        android:id="@+id/beat"
+        android:layout_alignTop="@+id/textView"
+        android:layout_toLeftOf="@+id/plus_percent"
+        android:layout_toStartOf="@+id/plus_percent" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -129,29 +120,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Beat:"
         android:id="@+id/textView"
-        android:layout_below="@+id/nerd"
-        android:layout_alignLeft="@+id/nerd"
-        android:layout_alignStart="@+id/nerd" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="ms:"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="0"
-        android:id="@+id/debug_ms"
-        android:layout_below="@+id/debug"
-        android:layout_alignRight="@+id/nerd"
-        android:layout_alignEnd="@+id/nerd" />
+        android:layout_below="@+id/ticker"
+        android:layout_toRightOf="@+id/minus_percent"
+        android:layout_toEndOf="@+id/minus_percent" />
 
 
 </RelativeLayout>

@@ -105,6 +105,13 @@ public class MainFragment extends Fragment {
         return mRootView;
     }
 
+    @Override
+    public void onStop() {
+        mMetronome.stopAndReleaseResources();
+        super.onStop();
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Handlers for UI interactions
     ///////////////////////////////////////////////////////////////////////////

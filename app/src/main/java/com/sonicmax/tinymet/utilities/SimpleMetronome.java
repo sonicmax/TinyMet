@@ -125,6 +125,16 @@ public class SimpleMetronome {
         }
     }
 
+    public void stopAndReleaseResources() {
+        if (mIsRunning) {
+            mFutureBeat.cancel(true);
+            mIsRunning = false;
+        }
+        if (mSoundPoolLoaded) {
+            mSoundPool.release();
+        }
+    }
+
     public void setTempo(int value) {
         if (value > 0 && value <= TEMPO_LIMIT) {
             mTempo = value;

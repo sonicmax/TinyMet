@@ -17,7 +17,7 @@ public class TestSimpleMetronome extends AndroidTestCase {
     private int mTotal = 0;
     private boolean mPaused = false;
 
-    private final SimpleMetronome metronome = new SimpleMetronome(TEST_END_BEAT, TEST_TEMPO) {
+    private final SimpleMetronome metronome = new SimpleMetronome(getContext(), TEST_END_BEAT, TEST_TEMPO) {
 
         @Override
         public void onTick(int currentBeat) {

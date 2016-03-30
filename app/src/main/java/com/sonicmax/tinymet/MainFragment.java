@@ -111,6 +111,11 @@ public class MainFragment extends Fragment {
         super.onStop();
     }
 
+    @Override
+    public void onResume() {
+        mMetronome.initAudio(getContext());
+        super.onResume();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Handlers for UI interactions

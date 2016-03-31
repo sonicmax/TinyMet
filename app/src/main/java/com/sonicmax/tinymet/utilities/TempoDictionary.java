@@ -8,7 +8,7 @@ import com.sonicmax.tinymet.database.TempoProvider;
 /**
  * Class which allows us to convert tempo markings to their equivalent in BPM.
  */
-public class TempoDictionary {
+public abstract class TempoDictionary {
     private Context mContext;
 
     public TempoDictionary(Context context) {
@@ -23,7 +23,13 @@ public class TempoDictionary {
         mDbHelper.close();
     }
 
-    public void onLoad(Cursor data) {
-        // Override this method so we can pass data to activity
+    public void sortDatabase(String language, String sortType) {
+        TempoProvider mDbHelper = new TempoProvider(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+        onLoad(mDbHelper.sortTempoData(language, sortType));
+        mDbHelper.close();
     }
+
+    public abstract void onLoad(Cursor data);
 }

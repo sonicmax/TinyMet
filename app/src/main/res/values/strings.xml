@@ -1,10 +1,14 @@
 <resources>
+    <!-- App stuff -->
     <string name="app_name">TinyMet</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Default BPM setting for metronome -->
     <string name="default_bpm">120</string>
 
+    <!-- Menu prompts -->
     <string name="drawer_open">Open options</string>
     <string name="drawer_close">Close options</string>
     <string name="pick_language">Pick a language</string>
+    <string name="sort_dict">Sort by&#8230;</string>
 </resources>

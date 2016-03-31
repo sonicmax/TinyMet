@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Language array for tempo dictionary -->
     <string-array name="languages">
         <item>Italian</item>
         <item>German</item>
         <item>French</item>
         <item>All</item>
+    </string-array>
+
+    <!-- Sort methods for tempo dictionary -->
+    <string-array name="sort_options">
+        <item>By name (ascending)</item>
+        <item>By name (descending)</item>
+        <item>By tempo (ascending)</item>
+        <item>By tempo (descending)</item>
     </string-array>
 </resources>

@@ -10,7 +10,7 @@ import android.support.v7.app.AlertDialog;
 import com.sonicmax.tinymet.R;
 
 /**
- * Multiple-choice dialog which allows user to filter tempo markings by language
+ * Multiple-choice dialog which allows user to sort tempo dictionary results
  */
 public abstract class SortDialog extends DialogFragment {
 

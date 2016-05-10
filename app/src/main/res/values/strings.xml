@@ -6,6 +6,11 @@
     <!-- Default BPM setting for metronome -->
     <string name="default_bpm">120</string>
 
+    <!-- Button labels -->
+    <string name="minus">-</string>
+    <string name="tap">Tap</string>
+    <string name="plus">+</string>
+
     <!-- Menu prompts -->
     <string name="drawer_open">Open options</string>
     <string name="drawer_close">Close options</string>

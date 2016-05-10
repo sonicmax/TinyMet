@@ -68,4 +68,39 @@ public class TempoProvider {
             throw e;
         }
     }
+
+    public Cursor sortTempoData(String language, String sortType) {
+        try {
+            String sql = "SELECT * FROM TEMPO_DICTIONARY";
+
+            if (!language.equals("ALL")) {
+                sql += " WHERE LANGUAGE = '" + language + "'";
+            }
+
+            switch (sortType) {
+                case "By name (ascending)":
+                    sql += " ORDER BY NAME";
+                    break;
+                case "By name (descending)":
+                    sql += " ORDER BY NAME DESC";
+                    break;
+                case "By tempo (ascending)":
+                    sql += " ORDER BY MIN";
+                    break;
+                case "By tempo (descending)":
+                    sql += " ORDER BY MIN DESC";
+                    break;
+            }
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur != null) {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException e) {
+            Log.e(LOG_TAG, "Error querying database: ", e);
+            throw e;
+        }
+    }
 }

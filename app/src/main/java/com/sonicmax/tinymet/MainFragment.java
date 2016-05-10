@@ -35,7 +35,7 @@ public class MainFragment extends Fragment {
     private View mRootView;
     private TextView mTempoView;
     private EditText mTempoEdit;
-    private ViewSwitcher mTempoSwitcher;
+    private ViewSwitcher mTempoViewSwitcher;
     private TextView mPercentDisplay;
     private Button mDecreaseTempo;
     private Button mIncreaseTempo;
@@ -61,21 +61,7 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mRootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        // Save references to views that may be useful later
-        mTempoView = (TextView) mRootView.findViewById(R.id.bpm);
-        mTempoEdit = (EditText) mRootView.findViewById(R.id.bpm_edit);
-        mBeatView = (TextView) mRootView.findViewById(R.id.beat);
-        mTempoSwitcher = (ViewSwitcher) mRootView.findViewById(R.id.bpm_switcher);
-        mDecreaseTempo = (Button) mRootView.findViewById(R.id.minus_button);
-        mIncreaseTempo = (Button) mRootView.findViewById(R.id.plus_button);
-        mDecreasePercent = (Button) mRootView.findViewById(R.id.minus_percent);
-        mIncreasePercent = (Button) mRootView.findViewById(R.id.plus_percent);
-        mPercentDisplay = (TextView) mRootView.findViewById(R.id.percent);
-        mFloatingButton = (FloatingActionButton) mRootView.findViewById(R.id.fab);
-        mSeekBar = (SeekBar) mRootView.findViewById(R.id.ticker);
-
-        // Set listeners for UI components
+        getUiElements();
         setListeners();
 
         // Prepare UI to display data from metronome
@@ -115,19 +101,32 @@ public class MainFragment extends Fragment {
     // Handlers for UI interactions
     ///////////////////////////////////////////////////////////////////////////
 
+    private void getUiElements() {
+        mTempoView = (TextView) mRootView.findViewById(R.id.bpm);
+        mTempoEdit = (EditText) mRootView.findViewById(R.id.bpm_edit);
+        mBeatView = (TextView) mRootView.findViewById(R.id.beat);
+        mTempoViewSwitcher = (ViewSwitcher) mRootView.findViewById(R.id.bpm_switcher);
+        mDecreaseTempo = (Button) mRootView.findViewById(R.id.minus_button);
+        mIncreaseTempo = (Button) mRootView.findViewById(R.id.plus_button);
+        mDecreasePercent = (Button) mRootView.findViewById(R.id.minus_percent);
+        mIncreasePercent = (Button) mRootView.findViewById(R.id.plus_percent);
+        mTapper = (Button) mRootView.findViewById(R.id.metronome_tap);
+        mPercentDisplay = (TextView) mRootView.findViewById(R.id.percent);
+        mFloatingButton = (FloatingActionButton) mRootView.findViewById(R.id.fab);
+        mSeekBar = (SeekBar) mRootView.findViewById(R.id.ticker);
+    }
+
     private void setListeners() {
-        mTempoSwitcher.setOnClickListener(clickHandler);
+        mTempoViewSwitcher.setOnClickListener(clickHandler);
         mDecreaseTempo.setOnClickListener(clickHandler);
         mIncreaseTempo.setOnClickListener(clickHandler);
         mDecreasePercent.setOnClickListener(clickHandler);
         mIncreasePercent.setOnClickListener(clickHandler);
-
+        mTapper.setOnClickListener(clickHandler);
         mDecreaseTempo.setOnLongClickListener(longClickHandler);
         mIncreaseTempo.setOnLongClickListener(longClickHandler);
-
         mDecreaseTempo.setOnTouchListener(touchHandler);
         mIncreaseTempo.setOnTouchListener(touchHandler);
-
         mSeekBar.setOnSeekBarChangeListener(beatChanger);
 
         if (mFloatingButton != null) {
@@ -157,7 +156,7 @@ public class MainFragment extends Fragment {
                     break;
 
                 case R.id.bpm_switcher:
-                    mTempoSwitcher.showNext(); // Switch TextView containing tempo to EditText
+                    mTempoViewSwitcher.showNext(); // Switch TextView containing tempo to EditText
                     mTempoEdit.requestFocus();
                     mTempoEdit.setText("");
                     mTempoEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -172,11 +171,11 @@ public class MainFragment extends Fragment {
                                     }
 
                                 } catch (NumberFormatException e) {
-                                    // User entered a blank number. We can ignore this
+                                    // We can just keep using existing tempo
                                     Log.e(LOG_TAG, "Couldn't parse input", e);
                                 }
 
-                                mTempoSwitcher.showPrevious(); // Switch back to TextView
+                                mTempoViewSwitcher.showPrevious(); // Switch back to TextView
                             }
                         }
                     });

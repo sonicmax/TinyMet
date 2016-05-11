@@ -69,16 +69,23 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        getUiElements();
+        getViewsFromDrawer();
+        setDrawerLanguage(DEFAULT_LANG);
 
+        // Init TempoDictionary and populate navigation drawer with data
         mTempoDictionary = new TempoDictionary(this) {
             @Override
             public void onLoad(Cursor data) {
+                addDrawerToggleListener();
                 populateDrawer(data);
-                initDrawer();
             }
         };
 
+        addListeners();
+    }
+
+    private void addListeners() {
+        // Add listener which allows user to change language of dictionary
         mDrawerLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Add listener which allows user to choose sort type of dictionary
         mDrawerSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,24 +122,26 @@ public class MainActivity extends AppCompatActivity {
                 selector.show(getSupportFragmentManager(), SORT_TAG);
             }
         });
-
-        mDrawerLanguage.setText(DEFAULT_LANG);
-        mTempoDictionary.loadDatabase(DEFAULT_LANG);
-        mCurrentLanguage = DEFAULT_LANG;
     }
 
-    private void getUiElements() {
+    ///////////////////////////////////////////////////////////////////////////
+    // Navigation drawer helper methods
+    ///////////////////////////////////////////////////////////////////////////
+
+    private void getViewsFromDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLanguage = (TextView) findViewById(R.id.drawer_lang);
         mDrawerDictionary = (ListView) findViewById(R.id.drawer_dictionary);
         mDrawerSort = (ImageButton) findViewById(R.id.sort_dictionary);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Navigation drawer methods
-    ///////////////////////////////////////////////////////////////////////////
-
     private void populateDrawer(Cursor cursor) {
+        // First, do some basic UI stuff
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
+        // Init arrays used to store dictionary search results
         ArrayList<String> nameArray = new ArrayList<>();
         final ArrayList<Tempo> tempoArray = new ArrayList<>();
 
@@ -140,10 +150,12 @@ public class MainActivity extends AppCompatActivity {
         int maxColumn = cursor.getColumnIndex(MAX_COLUMN);
 
         while (cursor.moveToNext()) {
+            // Search database for tempo indications which fit user intent
             nameArray.add(cursor.getString(nameColumn));
             tempoArray.add(new Tempo(cursor.getInt(minColumn), cursor.getInt(maxColumn)));
         }
 
+        // Create adapter to display this data and add necessary listeners
         mDrawerAdapter = new DictionaryAdapter(getBaseContext());
         mDrawerDictionary.setAdapter(mDrawerAdapter);
         mDrawerAdapter.updateDictionary(nameArray, tempoArray);
@@ -152,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TempoRangeDialog rangeDialog = new TempoRangeDialog(tempoArray.get(position)) {
+
                     @Override
                     public void onChooseTempo(int tempo) {
                         MainFragment fragment = (MainFragment)
@@ -171,10 +184,9 @@ public class MainActivity extends AppCompatActivity {
                 rangeDialog.show(getSupportFragmentManager(), TEMPO_RANGE_TAG);
             }
         });
-
     }
 
-    private void initDrawer() {
+    private void addDrawerToggleListener() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
 
@@ -188,10 +200,12 @@ public class MainActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
             }
         };
+    }
 
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+    private void setDrawerLanguage(String language) {
+        mDrawerLanguage.setText(language);
+        mTempoDictionary.loadDatabase(language);
+        mCurrentLanguage = language;
     }
 
     @Override

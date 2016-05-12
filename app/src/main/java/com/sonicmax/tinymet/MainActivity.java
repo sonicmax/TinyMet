@@ -70,18 +70,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         getViewsFromDrawer();
-        setDrawerLanguage(DEFAULT_LANG);
 
         // Init TempoDictionary and populate navigation drawer with data
         mTempoDictionary = new TempoDictionary(this) {
             @Override
             public void onLoad(Cursor data) {
-                addDrawerToggleListener();
+                addToggleListener();
                 populateDrawer(data);
             }
         };
 
         addListeners();
+        setDrawerLanguage(DEFAULT_LANG);
     }
 
     private void addListeners() {
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void addDrawerToggleListener() {
+    private void addToggleListener() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
 
